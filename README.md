@@ -19,3 +19,8 @@
 - kos doc: https://github.com/ali-kos/kos-docs
 
 - kos core: https://github.com/ali-kos/kos
+
+## 4. Following to do:
+
+- [ ] Mobile in Javascript
+- [ ] Mobild in Typescript

@@ -15,10 +15,10 @@ function getAnswers(projectName) {
   const question = [
     {
       type: "list",
-      message: "Choose a scaffold type",
-      default: "javaScript PC",
+      message: "Choose your project type",
+      default: "DESKTOP project in javascript",
       name: "scaffoldType",
-      choices: ["javaScript PC", "typeScript PC"]
+      choices: ["DESKTOP project in javascript", "DESKTOP project in typescript"]
     },
     {
       type: "input",
@@ -38,25 +38,25 @@ function getAnswers(projectName) {
       default: author,
       name: "author"
     },
-    {
-      type: "confirm",
-      message: "Would you want to use ESLint or TSLint for your code?",
-      default: true,
-      name: "lint"
-    },
+    // {
+    //   type: "confirm",
+    //   message: "Would you want use ESLint or TSLint in your project code?",
+    //   default: true,
+    //   name: "lint"
+    // },
+    // {
+    //   type: "list",
+    //   message: "Choose your css preLoader",
+    //   default: "less",
+    //   name: "cssPreLoader",
+    //   choices: ["less(current project)", "sass", "scss", "stylus"]
+    // },
     {
       type: "list",
-      message: "Choose your css preLoader",
-      default: "less",
-      name: "cssPreLoader",
-      choices: ["less(current project)", "sass", "scss", "stylus"]
-    },
-    {
-      type: "list",
-      message: "Choose your package manager",
-      default: "npm",
+      message: "Do you want to install dependencies using 'npm install' now?",
+      default: "npm install",
       name: "install",
-      choices: ["npm", "yarn", "not install"]
+      choices: ["npm install", "Install dependencies manually later"]
     }
   ];
   return new Promise((resolve, reject) => {
@@ -73,24 +73,26 @@ function getAnswers(projectName) {
 function downloadTmpl(type, projectPath) {
   let gitPath = "";
   switch (type) {
-    case "javaScript PC": //
+    case "DESKTOP project in javascript": //
       gitPath = "https://github.com/ali-kos/kos-scaffold-desktop1-javascript.git#for-CLI";
       break;
-    case "typeScript PC": //
+    case "DESKTOP project in typescript": //
       gitPath = "https://github.com/ali-kos/kos-scaffold-desktop1-typescript.git#for-CLI";
       break;
     default:
       gitPath = "https://github.com/ali-kos/kos-scaffold-desktop1-javascript.git#for-CLI";
   }
 
-  const spinner = ora("download template...");
+  const spinner = ora("Downloading template...");
   return new Promise((resolve, reject) => {
     spinner.start();
     download(`direct:${gitPath}`, projectPath, { clone: true }, function(err) {
-      if (err) reject(err);
+      if (err) {
+        reject(err);
+      }
       // process.stdout.clearLine();
       // process.stdout.cursorTo(0);
-      console.log(chalk.cyan("download complete.\n"));
+      console.log(chalk.cyan("Downloaded.\n"));
       spinner.stop();
       resolve();
     });
@@ -101,9 +103,13 @@ function renderTmpl(filePath, option) {
   const file = `${option.projectName}/${filePath}`;
   return new Promise((resolve, reject) => {
     consolidate.swig(file, option, function(err, data) {
-      if (err) reject(err);
+      if (err) {
+        reject(err);
+      }
       fs.writeFile(file, data, function(err) {
-        if (err) reject(err);
+        if (err) {
+          reject(err);
+        }
         resolve(data);
       });
     });
@@ -129,12 +135,12 @@ async function init(projectName) {
   await downloadTmpl(option.scaffoldType, projectPath);
   await renderTmpls(option);
   console.log("\n\n");
-  console.log("# Installing project dependencies ...");
+  console.log("# Installing project dependencies...");
   console.log("# ========================\n");
 
   process.chdir(projectPath);
   switch (option.install) {
-    case "npm":
+    case "npm install":
       const npmInstall = exec("npm install");
       npmInstall.stdout.on("data", function(data) {
         console.log(data);
