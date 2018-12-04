@@ -1,0 +1,36 @@
+{
+  "name": "kos-cli",
+  "version": "0.0.1",
+  "description": "Auto generate kos project template",
+  "main": "index.js",
+  "bin": {
+    "kos": "./src/kos.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+http://gitlab.choicesoft.com.cn/KOS/Scaffold.git"
+  },
+  "keywords": [
+    "kos-cli"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "eua",
+  "license": "MIT",
+  "bugs": {
+    "url": "http://gitlab.choicesoft.com.cn/KOS/Scaffold/issues"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "chalk-pipe": "^1.2.0",
+    "commander": "^2.17.1",
+    "consolidate": "^0.15.1",
+    "download-git-repo": "^1.1.0",
+    "inquirer": "^6.0.0",
+    "ora": "^2.1.0",
+    "prompt": "^1.0.0",
+    "shelljs": "^0.8.2",
+    "swig": "^1.4.2"
+  }
+}
