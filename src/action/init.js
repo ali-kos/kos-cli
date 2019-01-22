@@ -15,10 +15,10 @@ function getAnswers(projectName) {
   const question = [
     {
       type: "list",
-      message: "Choose your project type",
-      default: "DESKTOP project in javascript",
+      message: "Choose your app(project) type",
+      default: "DESKTOP app in javascript",
       name: "scaffoldType",
-      choices: ["DESKTOP project in javascript", "DESKTOP project in typescript"]
+      choices: ["DESKTOP app in javascript", "DESKTOP app in typescript", "MOBILE app in javascript"]
     },
     {
       type: "input",
@@ -53,7 +53,7 @@ function getAnswers(projectName) {
     // },
     {
       type: "list",
-      message: "Do you want to install dependencies using 'npm install' now?",
+      message: "Would you like to install dependencies with 'npm install' right now?",
       default: "npm install",
       name: "install",
       choices: ["npm install", "Install dependencies manually later"]
@@ -73,11 +73,14 @@ function getAnswers(projectName) {
 function downloadTmpl(type, projectPath) {
   let gitPath = "";
   switch (type) {
-    case "DESKTOP project in javascript": //
+    case "DESKTOP app in javascript": //
       gitPath = "https://github.com/ali-kos/kos-scaffold-desktop1-javascript.git#for-CLI";
       break;
-    case "DESKTOP project in typescript": //
+    case "DESKTOP app in typescript": //
       gitPath = "https://github.com/ali-kos/kos-scaffold-desktop1-typescript.git#for-CLI";
+      break;
+    case "MOBILE app in javascript": //
+      gitPath = "https://github.com/ali-kos/kos-scaffold-mobile1-javascript.git#for-CLI";
       break;
     default:
       gitPath = "https://github.com/ali-kos/kos-scaffold-desktop1-javascript.git#for-CLI";
